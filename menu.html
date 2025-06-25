@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIX Café - Our Menu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reuse the same CSS from the landing page */
+        :root {
+            --primary: #e8c4b8;
+            --secondary: #6b4f4b;
+            --accent: #d4a59a;
+            --light: #f8f1e9;
+            --dark: #3a2e2a;
+            --text: #333333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            color: var(--secondary);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            font-size: 2.5rem;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background-color: var(--accent);
+            margin: 15px auto 0;
+        }
+        
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px 0;
+            z-index: 1000;
+            transition: all 0.4s ease;
+            background-color: rgba(248, 241, 233, 0.98);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--secondary);
+            text-decoration: none;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        nav ul li a:hover:after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--secondary);
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        /* Menu Page Specific Styles */
+        .menu-hero {
+            height: 60vh;
+            min-height: 500px;
+            background: linear-gradient(rgba(58, 46, 42, 0.5), rgba(58, 46, 42, 0.5)), 
+                        url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            margin-top: 80px;
+        }
+        
+        .menu-hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .menu-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--light);
+        }
+        
+        .menu-hero p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+        }
+        
+        /* Menu Categories */
+        .menu-categories {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .menu-categories button {
+            padding: 10px 25px;
+            background: none;
+            border: 1px solid var(--accent);
+            color: var(--secondary);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+        
+        .menu-categories button:hover, 
+        .menu-categories button.active {
+            background-color: var(--accent);
+            color: white;
+        }
+        
+        /* Menu Sections */
+        .menu-section {
+            margin-bottom: 80px;
+        }
+        
+        .menu-section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2rem;
+            color: var(--secondary);
+            position: relative;
+        }
+        
+        .menu-section-title:after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 2px;
+            background-color: var(--accent);
+            margin: 15px auto 0;
+        }
+        
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .menu-item {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: all 0.4s ease;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .menu-item-img {
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .menu-item-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+        
+        .menu-item:hover .menu-item-img img {
+            transform: scale(1.1);
+        }
+        
+        .menu-item-content {
+            padding: 25px;
+        }
+        
+        .menu-item-title {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .menu-item-title h3 {
+            font-size: 1.3rem;
+        }
+        
+        .menu-item-price {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        
+        .menu-item-desc {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .menu-item-allergens {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .allergen-tag {
+            background-color: var(--light);
+            color: var(--secondary);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        /* Signature Items */
+        .signature-items {
+            background-color: var(--dark);
+            color: white;
+            padding: 80px 0;
+        }
+        
+        .signature-items .section-title {
+            color: white;
+        }
+        
+        .signature-items .section-title:after {
+            background-color: var(--primary);
+        }
+        
+        .signature-item {
+            background-color: rgba(255,255,255,0.1);
+            backdrop-filter: blur(5px);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        
+        .signature-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        
+        .signature-item-img {
+            height: 300px;
+            overflow: hidden;
+        }
+        
+        .signature-item-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+        
+        .signature-item:hover .signature-item-img img {
+            transform: scale(1.1);
+        }
+        
+        .signature-item-content {
+            padding: 30px;
+        }
+        
+        .signature-item-title {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        
+        .signature-item-title h3 {
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .signature-item-price {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.4rem;
+        }
+        
+        .signature-item-desc {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .chef-note {
+            font-style: italic;
+            padding: 15px;
+            background-color: rgba(212, 165, 154, 0.2);
+            border-left: 3px solid var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-col h3 {
+            color: white;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .footer-col h3:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+        
+        .footer-col p {
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #bbb;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--accent);
+            transform: translateY(-5px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #bbb;
+            font-size: 14px;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            nav ul {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                height: 100vh;
+                background-color: var(--light);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.5s ease;
+                z-index: 999;
+            }
+            
+            nav ul.active {
+                right: 0;
+            }
+            
+            nav ul li {
+                margin: 15px 0;
+            }
+            
+            nav ul li a {
+                color: var(--secondary);
+                font-size: 1.2rem;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                z-index: 1000;
+            }
+            
+            .menu-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .menu-items {
+                grid-template-columns: 1fr;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">MIX Café</a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="menu.html" class="active">Menu</a></li>
+                    <li><a href="experience.html">Experience</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Menu Hero -->
+    <section class="menu-hero">
+        <div class="menu-hero-content">
+            <h1>Our Menu</h1>
+            <p>Seasonal ingredients, crafted with care. Explore our selection of artisanal baked goods, specialty coffees, and fresh meals.</p>
+            <a href="#signature" class="btn">View Signature Items</a>
+        </div>
+    </section>
+
+    <!-- Menu Navigation -->
+    <section class="menu-nav">
+        <div class="container">
+            <div class="menu-categories">
+                <button class="active" data-category="all">All</button>
+                <button data-category="breakfast">Breakfast</button>
+                <button data-category="pastries">Pastries</button>
+                <button data-category="coffee">Coffee</button>
+                <button data-category="lunch">Lunch</button>
+                <button data-category="desserts">Desserts</button>
+                <button data-category="drinks">Drinks</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Breakfast Menu -->
+    <section class="menu-section" id="breakfast">
+        <div class="container">
+            <h2 class="menu-section-title">Breakfast</h2>
+            <div class="menu-items">
+                <!-- Item 1 -->
+                <div class="menu-item" data-category="breakfast">
+                    <div class="menu-item-img">
+                        <img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1548&q=80" alt="Avocado Toast">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3>Avocado Toast</h3>
+                            <span class="menu-item-price">₦4,500</span>
+                        </div>
+                        <p class="menu-item-desc">Sourdough bread topped with smashed avocado, cherry tomatoes, microgreens, and poached eggs.</p>
+                        <div class="menu-item-allergens">
+                            <span class="allergen-tag">Eggs</span>
+                            <span class="allergen-tag">Gluten</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 2 -->
+                <div class="menu-item" data-category="breakfast">
+                    <div class="menu-item-img">
+                        <img src="https://images.unsplash.com/photo-1550583724-b2692b85b150?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" alt="Pancakes">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3>Buttermilk Pancakes</h3>
+                            <span class="menu-item-price">₦4,200</span>
+                        </div>
+                        <p class="menu-item-desc">Fluffy buttermilk pancakes served with maple syrup, fresh berries, and whipped cream.</p>
+                        <div class="menu-item-allergens">
+                            <span class="allergen-tag">Dairy</span>
+                            <span class="allergen-tag">Gluten</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 3 -->
+                <div class="menu-item" data-category="breakfast">
+                    <div class="menu-item-img">
+                        <img src="https://images.unsplash.com/photo-1559847844-5315695dadae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" alt="Breakfast Bowl">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3>Acai Breakfast Bowl</h3>
+                            <span class="menu-item-price">₦4,800</span>
+                        </div>
+                        <p class="menu-item-desc">Acai blended with banana and berries, topped with granola, coconut flakes, and fresh fruit.</p>
+                        <div class="menu-item-allergens">
+                            <span class="allergen-tag">Nuts</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pastries Menu -->
+    <section class="menu-section" id="pastries">
+        <div class="container">
+            <h2 class="menu-section-title">Pastries</h2>
+            <div class="menu-items">
+                <!-- Item 1 -->
+                <div class="menu-item" data-category="pastries">
+                    <div class="menu-item-img">
+                        <img src="https://images.unsplash.com/photo-1562440499-64c9a111f713?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" alt="Croissant">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3>Butter Croissant</h3>
+                            <span class="menu-item-price">₦2,500</span>
+                        </div>
+                        <p class="menu-item-desc">Flaky, buttery layers baked to golden perfection. Served warm with homemade jam.</p>
+                        <div class="menu-item-allergens">
+                            <span class="allergen-tag">Dairy</span>
+                            <span class="allergen-tag">Gluten</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 2 -->
+                <div class="menu-item" data-category="pastries">
+                    <div class="menu-item-img">
+                        <img src="https://images.unsplash.com/photo-1612203985729-70726954388c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" alt="Cinnamon Roll">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3>Cinnamon Roll</h3>
+                            <span class="menu-item-price">₦2,800</span>
+                        </div>
+                        <p class="menu-item-desc">Soft, fluffy dough swirled with cinnamon sugar and topped with cream cheese frosting.</p>
+                        <div class="menu-item-allergens">
+                            <span class="allergen-tag">Dairy</span>
+                            <span class="allergen-tag">Gluten</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 3 -->
+                <div class="menu-item" data-category="pastries">
+                    <div class="menu-item-img">
+                        <img src="https://images.unsplash.com/photo-1603532648955-039310d9ed75?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" alt="Almond Croissant">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3>Almond Croissant</h3>
+                            <span class="menu-item-price">₦3,200</span>
+                        </div>
+                        <p class="menu-item-desc">Buttery croissant filled with almond cream and topped with sliced almonds.</p>
+                        <div class="menu-item-allergens">
+                            <span class="allergen-tag">Nuts</span>
+                            <span class="allergen-tag">Dairy</span>
+                            <span class="allergen-tag">Gluten</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Coffee Menu -->
+    <section class="menu-section" id="coffee">
+        <div class="container">
+            <h2 class="menu-section-title">Coffee</h2>
+            <div class="menu-items">
+                <!-- Item 1 -->
+                <div class="menu-item" data-category="coffee">
+                    <div class="menu-item-img">
+                        <img src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Cappuccino">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3>Artisan Cappuccino</h3>
+                            <span class="menu-item-price">₦3,200</span>
+                        </div>
+                        <p class="menu-item-desc">Rich espresso balanced with steamed milk and a delicate layer of foam. Artfully presented.</p>
+                        <div class="menu-item-allergens">
+                            <span class="allergen-tag">Dairy</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 2 -->
+                <div class="menu-item" data-category="coffee">
+                    <div class="menu-item-img">
+                        <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" alt="Iced Coffee">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3>Vietnamese Iced Coffee</h3>
+                            <span class="menu-item-price">₦3,800</span>
+                        </div>
+                        <p class="menu-item-desc">Strong dark roast coffee sweetened with condensed milk and served over ice.</p>
+                        <div class="menu-item-allergens">
+                            <span class="allergen-tag">Dairy</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 3 -->
+                <div class="menu-item" data-category="coffee">
+                    <div class="menu-item-img">
+                        <img src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Latte">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-title">
+                            <h3>Hazelnut Latte</h3>
+                            <span class="menu-item-price">₦3,500</span>
+                        </div>
+                        <p class="menu-item-desc">Espresso with steamed milk and hazelnut syrup, topped with foam.</p>
+                        <div class="menu-item-allergens">
+                            <span class="allergen-tag">Dairy</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Signature Items -->
+    <section class="signature-items" id="signature">
+        <div class="container">
+            <h2 class="section-title">Signature Items</h2>
+            <div class="menu-items">
+                <!-- Signature Item 1 -->
+                <div class="signature-item">
+                    <div class="signature-item-img">
+                        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2089&q=80" alt="Chocolate Cake">
+                    </div>
+                    <div class="signature-item-content">
+                        <div class="signature-item-title">
+                            <h3>Chocolate Ganache Cake</h3>
+                            <span class="signature-item-price">₦6,500</span>
+                        </div>
+                        <p class="signature-item-desc">Our signature dessert featuring layers of rich chocolate sponge, silky ganache, and fresh berries. A perfect balance of sweetness and richness.</p>
+                        <div class="chef-note">
+                            <p>"This cake was inspired by my grandmother's recipe, with a modern twist using single-origin Ghanaian cocoa." - Chef Amina</p>
+                        </div>
+                        <div class="menu-item-allergens">
+                            <span class="allergen-tag">Dairy</span>
+                            <span class="allergen-tag">Gluten</span>
+                            <span class="allergen-tag">Eggs</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Signature Item 2 -->
+                <div class="signature-item">
+                    <div class="signature-item-img">
+                        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80" alt="Salad">
+                    </div>
+                    <div class="signature-item-content">
+                        <div class="signature-item-title">
+                            <h3>Harvest Salad</h3>
+                            <span class="signature-item-price">₦5,800</span>
+                        </div>
+                        <p class="signature-item-desc">A celebration of local produce featuring seasonal greens with roasted vegetables, goat cheese, walnuts, and our signature balsamic glaze.</p>
+                        <div class="chef-note">
+                            <p>"We change the vegetables seasonally to showcase the best of Nigerian agriculture." - Chef Tunde</p>
+                        </div>
+                        <div class="menu-item-allergens">
+                            <span class="allergen-tag">Nuts</span>
+                            <span class="allergen-tag">Dairy</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h3>MIX Café</h3>
+                    <p>Memories baked into every bite. A modern café experience in Abuja, redefining Nigeria's culinary and hospitality scene.</p>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="menu.html">Menu</a></li>
+                        <li><a href="experience.html">Events</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Opening Hours</h3>
+                    <ul class="footer-links">
+                        <li>Monday - Friday: 8am - 10pm</li>
+                        <li>Saturday - Sunday: 9am - 11pm</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to receive updates on special events and new menu items.</p>
+                    <form>
+                        <div class="form-group">
+                            <input type="email" placeholder="Your Email" required>
+                        </div>
+                        <button type="submit" class="btn">Subscribe</button>
+                    </form>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 MIX Café. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navMenu.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Menu Filter Functionality
+        const filterBtns = document.querySelectorAll('.menu-categories button');
+        const menuItems = document.querySelectorAll('.menu-item, .signature-item');
+        
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterBtns.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                const filter = btn.getAttribute('data-filter');
+                
+                menuItems.forEach(item => {
+                    if (filter === 'all') {
+                        item.style.display = 'block';
+                    } else {
+                        const category = item.getAttribute('data-category');
+                        if (category && category.includes(filter)) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    }
+                });
+                
+                // Scroll to the relevant section if not "all"
+                if (filter !== 'all') {
+                    const section = document.getElementById(filter);
+                    if (section) {
+                        window.scrollTo({
+                            top: section.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
