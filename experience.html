@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIX Café – The Experience</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reused Brand Styles */
+        :root {
+            --primary: #e8c4b8;
+            --secondary: #6b4f4b;
+            --accent: #d4a59a;
+            --light: #f8f1e9;
+            --dark: #3a2e2a;
+            --text: #333333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            color: var(--secondary);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+        
+        section {
+            padding: 100px 0;
+        }
+        
+        /* Header (Reused) */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px 0;
+            z-index: 1000;
+            transition: all 0.4s ease;
+            background-color: rgba(248, 241, 233, 0.98);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--secondary);
+            text-decoration: none;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        nav ul li a:hover:after {
+            width: 100%;
+        }
+        
+        nav ul li a.active {
+            font-weight: 500;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--secondary);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Experience Hero */
+        .experience-hero {
+            height: 80vh;
+            min-height: 600px;
+            background: linear-gradient(rgba(58, 46, 42, 0.3), rgba(58, 46, 42, 0.3)), 
+                        url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            margin-top: 80px;
+            position: relative;
+        }
+        
+        .experience-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 60%, var(--dark) 100%);
+        }
+        
+        .experience-hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .experience-hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: var(--light);
+            line-height: 1.2;
+        }
+        
+        .experience-hero p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 40px;
+        }
+        
+        /* Philosophy Section */
+        .philosophy {
+            background-color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .philosophy-container {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+        
+        .philosophy-img {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .philosophy-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.8s ease;
+        }
+        
+        .philosophy-content {
+            flex: 1;
+        }
+        
+        .philosophy-content h2 {
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .philosophy-content h2:after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 2px;
+            background-color: var(--accent);
+            margin-top: 15px;
+        }
+        
+        .philosophy-content p {
+            margin-bottom: 20px;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+        
+        .quote {
+            font-style: italic;
+            padding: 30px;
+            background-color: var(--light);
+            border-left: 3px solid var(--accent);
+            margin: 40px 0;
+            position: relative;
+        }
+        
+        .quote:before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 4rem;
+            color: var(--accent);
+            opacity: 0.2;
+            font-family: serif;
+        }
+        
+        /* Atelier Section */
+        .atelier {
+            background-color: var(--light);
+        }
+        
+        .atelier-container {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+        
+        .atelier-content {
+            flex: 1;
+        }
+        
+        .atelier-content h2 {
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .atelier-content h2:after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 2px;
+            background-color: var(--accent);
+            margin-top: 15px;
+        }
+        
+        .atelier-img {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .atelier-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Team Section */
+        .team {
+            background-color: white;
+            text-align: center;
+        }
+        
+        .team h2 {
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+        }
+        
+        .team-members {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .team-member {
+            background-color: var(--light);
+            padding: 30px;
+            border-radius: 10px;
+            transition: all 0.4s ease;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .team-member-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 20px;
+            border: 3px solid var(--accent);
+        }
+        
+        .team-member-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .team-member h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .team-member p {
+            color: var(--secondary);
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+        
+        .team-member-desc {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* Moments Section */
+        .moments {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+        }
+        
+        .moments h2 {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+        }
+        
+        .moments h2:after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 2px;
+            background-color: var(--accent);
+            margin: 15px auto 0;
+        }
+        
+        .moments-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .moment {
+            height: 300px;
+            overflow: hidden;
+            position: relative;
+            border-radius: 5px;
+        }
+        
+        .moment img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+        
+        .moment:hover img {
+            transform: scale(1.1);
+        }
+        
+        .moment-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(58, 46, 42, 0.8), transparent);
+            display: flex;
+            align-items: flex-end;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .moment:hover .moment-overlay {
+            opacity: 1;
+        }
+        
+        .moment-caption {
+            transform: translateY(20px);
+            transition: transform 0.4s ease;
+        }
+        
+        .moment:hover .moment-caption {
+            transform: translateY(0);
+        }
+        
+        /* Footer (Reused) */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-col h3 {
+            color: white;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .footer-col h3:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+        
+        .footer-col p {
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #bbb;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--accent);
+            transform: translateY(-5px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #bbb;
+            font-size: 14px;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .philosophy-container,
+            .atelier-container {
+                flex-direction: column;
+            }
+            
+            .philosophy-img,
+            .philosophy-content,
+            .atelier-content,
+            .atelier-img {
+                flex: none;
+                width: 100%;
+            }
+            
+            .philosophy-img {
+                margin-bottom: 30px;
+            }
+            
+            .atelier-img {
+                margin-top: 30px;
+                order: 2;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                height: 100vh;
+                background-color: var(--light);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.5s ease;
+                z-index: 999;
+            }
+            
+            nav ul.active {
+                right: 0;
+            }
+            
+            nav ul li {
+                margin: 15px 0;
+            }
+            
+            nav ul li a {
+                color: var(--secondary);
+                font-size: 1.2rem;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                z-index: 1000;
+            }
+            
+            .experience-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">MIX Café</a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="menu.html">Menu</a></li>
+                    <li><a href="experience.html" class="active">Experience</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Experience Hero -->
+    <section class="experience-hero">
+        <div class="experience-hero-content">
+            <h1>Where Quiet Luxury Meets Artistic Baking</h1>
+            <p>MIX sits at the intersection of golden hour light and edible sculpture—a space where time slows and every bite tells a story.</p>
+            <a href="#philosophy" class="btn">Explore Our World</a>
+        </div>
+    </section>
+
+    <!-- Philosophy Section -->
+    <section class="philosophy" id="philosophy">
+        <div class="container">
+            <div class="philosophy-container">
+                <div class="philosophy-img">
+                    <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" alt="MIX Café interior">
+                </div>
+                <div class="philosophy-content">
+                    <h2>The MIX Philosophy</h2>
+                    <p>Softly lit with golden hour lingering on the walls longer than usual, MIX is lined with warm woods, linen napkins, and the faint scent of almond in the air. Our food looks styled but never staged—each creation carries the imprint of hands that crafted it with intention.</p>
+                    
+                    <div class="quote">
+                        <p>"We believe baking is a love language. Our café is a canvas where nostalgia meets innovation, where every crumb trail tells a story of care."</p>
+                    </div>
+                    
+                    <p>The rhythm of MIX is deliberately unhurried. Staff move with calm precision in minimalist uniforms that mirror our aesthetic—not performative, but deeply intentional. They're trained not just to serve, but to narrate the stories behind each recipe.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Atelier Section -->
+    <section class="atelier">
+        <div class="container">
+            <div class="atelier-container">
+                <div class="atelier-content">
+                    <h2>The Atelier</h2>
+                    <p>Step into our creative studio and witness the alchemy. Clean surfaces serve as stages for edible sculptures, with sketches of cake layers pinned beside fabric swatches for inspiration. Cake stands become plinths showcasing our edible art.</p>
+                    <p>Maryam Bello, our creative lead, moves through the space like a quiet conductor—her hands always in motion, adjusting, guiding. Her presence is felt more than it's seen, a testament to her philosophy that the craft should speak louder than the craftsman.</p>
+                    <p>Here, ingredients are treated with reverence. Watch as hands layer cakes in soft natural light, as syrup drips in slow motion, as steam rises from freshly baked loaves breaking open to reveal their tender crumb.</p>
+                </div>
+                <div class="atelier-img">
+                    <img src="https://images.unsplash.com/photo-1603532648955-039310d9ed75?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" alt="Baking process at MIX">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team">
+        <div class="container">
+            <h2>Our Hands & Hearts</h2>
+            <div class="team-members">
+                <div class="team-member">
+                    <div class="team-member-img">
+                        <img src="https://img.freepik.com/free-photo/woman-working-as-professional-chef_23-2151864227.jpg?uid=R148061053&ga=GA1.1.784025258.1734678817&semt=ais_items_boosted&w=740 " alt="Maryam Bello">
+                    </div>
+                    <h3>Maryam Bello</h3>
+                    <p>Creative Lead</p>
+                    <p class="team-member-desc">Trained in Paris but rooted in Abuja, Maryam approaches pastry as edible architecture—where flavor and form share equal importance.</p>
+                </div>
+                
+                <div class="team-member">
+                    <div class="team-member-img">
+                        <img src="https://img.freepik.com/free-photo/portrait-person-owning-managing-their-own-business_23-2151456903.jpg?uid=R148061053&ga=GA1.1.784025258.1734678817&semt=ais_items_boosted&w=740 " alt="Tunde Okafor">
+                    </div>
+                    <h3>Tunde Okafor</h3>
+                    <p>Head Baker</p>
+                    <p class="team-member-desc">With flour in his veins, Tunde transforms humble ingredients into poetic creations through slow fermentation techniques.</p>
+                </div>
+                
+                <div class="team-member">
+                    <div class="team-member-img">
+                        <img src="https://img.freepik.com/free-photo/woman-working-as-professional-chef_23-2151864191.jpg?uid=R148061053&ga=GA1.1.784025258.1734678817&semt=ais_items_boosted&w=740 " alt="Amina Yusuf">
+                    </div>
+                    <h3>Amina Yusuf</h3>
+                    <p>Coffee Alchemist</p>
+                    <p class="team-member-desc">Amina treats coffee beans like rare spices, crafting brews that tell the story of their origin through every nuanced note.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Moments Section -->
+    <section class="moments">
+        <div class="container">
+            <h2>Moments at MIX</h2>
+            <div class="moments-grid">
+                <div class="moment">
+                    <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Coffee preparation">
+                    <div class="moment-overlay">
+                        <div class="moment-caption">
+                            <h4>Morning Rituals</h4>
+                            <p>The first espresso of the day</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="moment">
+                    <img src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Bread making">
+                    <div class="moment-overlay">
+                        <div class="moment-caption">
+                            <h4>The Craft</h4>
+                            <p>Hands shaping sourdough</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="moment">
+                    <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" alt="Café interior">
+                    <div class="moment-overlay">
+                        <div class="moment-caption">
+                            <h4>Golden Hour</h4>
+                            <p>Light dancing on pastry</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="moment">
+                    <img src="https://images.unsplash.com/photo-1603532648955-039310d9ed75?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" alt="Pastry detail">
+                    <div class="moment-overlay">
+                        <div class="moment-caption">
+                            <h4>Edible Art</h4>
+                            <p>Layers of flavor and texture</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h3>MIX Café</h3>
+                    <p>Memories baked into every bite. A modern café experience in Abuja, redefining Nigeria's culinary and hospitality scene.</p>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="menu.html">Menu</a></li>
+                        <li><a href="experience.html">Experience</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Opening Hours</h3>
+                    <ul class="footer-links">
+                        <li>Monday - Friday: 8am - 10pm</li>
+                        <li>Saturday - Sunday: 9am - 11pm</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to receive updates on special events and new menu items.</p>
+                    <form>
+                        <div class="form-group">
+                            <input type="email" placeholder="Your Email" required>
+                        </div>
+                        <button type="submit" class="btn">Subscribe</button>
+                    </form>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 MIX Café. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navMenu.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
