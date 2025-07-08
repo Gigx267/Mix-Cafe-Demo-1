@@ -14,6 +14,7 @@
             --light: #f8f1e9;
             --dark: #3a2e2a;
             --text: #333333;
+            --green: #7B8D6A;
         }
         
         * {
@@ -58,6 +59,14 @@
             background-color: var(--secondary);
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn-green {
+            background-color: var(--green);
+        }
+
+        .btn-green:hover {
+            background-color: #6a7c5a;
         }
         
         section {
@@ -386,6 +395,76 @@
         .event p {
             margin-bottom: 0;
         }
+
+        /* Learning Section */
+        .learning {
+            background-color: white;
+        }
+
+        .learning-container {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .learning-img {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .learning-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .learning-img:hover img {
+            transform: scale(1.05);
+        }
+
+        .learning-content {
+            flex: 1;
+        }
+
+        .learning-content h2 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: var(--green);
+        }
+
+        .learning-content p {
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .course-list {
+            margin-bottom: 30px;
+        }
+
+        .course-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .course-item i {
+            color: var(--green);
+            margin-right: 15px;
+            margin-top: 3px;
+        }
+
+        .course-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .course-item p {
+            margin-bottom: 0;
+            color: #666;
+        }
         
         /* Gallery Section */
         .gallery {
@@ -617,14 +696,17 @@
         /* Responsive Styles */
         @media (max-width: 992px) {
             .about-container,
-            .contact-container {
+            .contact-container,
+            .learning-container {
                 flex-direction: column;
             }
             
             .about-img,
             .about-content,
             .contact-info,
-            .contact-form {
+            .contact-form,
+            .learning-img,
+            .learning-content {
                 flex: none;
                 width: 100%;
             }
@@ -686,16 +768,17 @@
     <!-- Header -->
     <header id="header">
         <div class="container header-container">
-            <a href="#" class="logo">MIX Café</a>
+            <a style="color: #7B8D6A;"   href="#" class="logo">MIX Café</a>
             <button class="mobile-menu-btn" id="mobileMenuBtn">
                 <i class="fas fa-bars"></i>
             </button>
             <nav>
                 <ul id="navMenu">
-                    <li><a href="index.html">Home</a></li>
+                    <li><a   href="index.html">Home</a></li>
                     <li><a href="about.html">About</a></li>
                     <li><a href="menu.html">Menu</a></li>
                     <li><a href="experience.html">Experience</a></li>
+                    <li><a href="Classes.html"> Classes</a></li>
                     <li><a href="gallery.html">Gallery</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
@@ -706,8 +789,8 @@
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="hero-content">
-            <h1>Welcome to MIX Café </h1>
-            <p> A modern café experience in Abuja, redefining Nigeria's culinary and hospitality scene with intimate, crafted, and nostalgic flavors.</p>
+            <h1 style="color: #7B8D6A;"  >Welcome to MIX Café </h1>
+            <p  style="color: #7B8D6A;" > A modern café experience in Abuja, redefining Nigeria's culinary and hospitality scene with intimate, crafted, and nostalgic flavors.</p>
             <a href="#menu" class="btn">Explore Our Menu</a>
         </div>
     </section>
@@ -861,6 +944,50 @@
                     <i class="fas fa-wine-glass-alt"></i>
                     <h3>Wine & Dine Evenings</h3>
                     <p>Monthly curated dining experiences pairing seasonal dishes with exceptional wines.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Learning Section -->
+    <section class="learning" id="learning">
+        <div class="container">
+            <h2 class="section-title">Bakery Classes</h2>
+            <div class="learning-container">
+                <div class="learning-img">
+                    <img src="https://images.unsplash.com/photo-1608190003443-86ab6a0a1e3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Baking class">
+                </div>
+                <div class="learning-content">
+                    <h2>Learn the Art of Baking</h2>
+                    <p>Join our expert bakers in interactive online classes and master the techniques behind our most beloved pastries and breads. Whether you're a beginner or looking to refine your skills, we have courses for every level.</p>
+                    
+                    <div class="course-list">
+                        <div class="course-item">
+                            <i class="fas fa-bread-slice"></i>
+                            <div>
+                                <h4>Artisan Bread Making</h4>
+                                <p>Learn to create perfect sourdough, baguettes, and more with our step-by-step guidance.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="course-item">
+                            <i class="fas fa-birthday-cake"></i>
+                            <div>
+                                <h4>Decadent Desserts</h4>
+                                <p>Master the techniques for creating show-stopping cakes, tarts, and pastries.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="course-item">
+                            <i class="fas fa-cookie"></i>
+                            <div>
+                                <h4>Cookie & Biscuit Workshop</h4>
+                                <p>From classic chocolate chip to delicate French macarons, perfect your cookie game.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <a href="#contact" class="btn btn-green">Sign Up for Classes</a>
                 </div>
             </div>
         </div>
@@ -1032,6 +1159,7 @@
                         <li><a href="#about">About Us</a></li>
                         <li><a href="#menu">Menu</a></li>
                         <li><a href="#experience">Events</a></li>
+                        <li><a href="#learning">Classes</a></li>
                         <li><a href="#gallery">Gallery</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
